@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-
+/**
+ * Контроллер временно не используется
+ */
 @RestController
 @RequestMapping("/data/users")
 public class UserController {

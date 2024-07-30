@@ -7,7 +7,7 @@ spring:
         - id: user-data-service
           uri: lb://USER-DATA-SERVICE
           predicates:
-            - Path=/data/**
+            - Path=/auth/**
 
 
 server:

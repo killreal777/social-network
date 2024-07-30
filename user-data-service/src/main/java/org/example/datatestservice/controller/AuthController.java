@@ -30,14 +30,19 @@ public class AuthController {
 
     @PostMapping("/token")
     public String getToken(@RequestBody AuthRequest authRequest){
-        Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+        try {
+            Authentication authentication = authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
 
-        if (authentication.isAuthenticated()){
-            return authService.generateToken(authRequest.getUsername());
-        }else{
-            // todo далее сделать свое кастомное исключение
-            throw new RuntimeException("Отказано в доступе");
+            if (authentication.isAuthenticated()){
+                System.out.println("тут");
+                return authService.generateToken(authRequest.getUsername());
+            } else {
+                throw new RuntimeException("Отказано в доступе");
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Вывод ошибки в консоль для диагностики
+            throw new RuntimeException("Ошибка аутентификации", e);
         }
     }
 
