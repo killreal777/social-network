@@ -1,4 +1,4 @@
-package org.example.datatestservice.service;
+package org.example.datatestservice.service.auth;
 
 
 import org.example.datatestservice.model.UserCredentials;
