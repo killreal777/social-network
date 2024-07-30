@@ -1,6 +1,14 @@
 spring:
   application:
     name: API-GATEWAY-SERVICE
+  cloud:
+    gateway:
+      routes:
+        - id: user-data-service
+          uri: lb://USER-DATA-SERVICE
+          predicates:
+            - Path=/data/**
+
 
 server:
   port: 25001
