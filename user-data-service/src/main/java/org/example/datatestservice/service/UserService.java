@@ -1,6 +1,6 @@
 package org.example.datatestservice.service;
 
-import org.example.datatestservice.model.User;
+import org.example.datatestservice.model.UserCredentials;
 import org.example.datatestservice.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,22 +16,22 @@ public class UserService {
     }
 
 
-    public User saveUser(User userDTO) {
-        User user = new User();
-        user.setUsername(userDTO.getUsername());
-        user.setEmail(userDTO.getEmail());
-        user = userRepository.save(user);
-        userDTO.setId(user.getId());
-        return userDTO;
+    public UserCredentials saveUser(UserCredentials userCredentialsDTO) {
+        UserCredentials userCredentials = new UserCredentials();
+        userCredentials.setUsername(userCredentialsDTO.getUsername());
+        userCredentials.setEmail(userCredentialsDTO.getEmail());
+        userCredentials = userRepository.save(userCredentials);
+        userCredentialsDTO.setId(userCredentials.getId());
+        return userCredentialsDTO;
     }
 
-    public Optional<User> getUserById(Long id) {
+    public Optional<UserCredentials> getUserById(Long id) {
         return userRepository.findById(id)
-                .map(user -> {
-                    User dto = new User();
-                    dto.setId(user.getId());
-                    dto.setUsername(user.getUsername());
-                    dto.setEmail(user.getEmail());
+                .map(userCredentials -> {
+                    UserCredentials dto = new UserCredentials();
+                    dto.setId(userCredentials.getId());
+                    dto.setUsername(userCredentials.getUsername());
+                    dto.setEmail(userCredentials.getEmail());
                     return dto;
                 });
     }
