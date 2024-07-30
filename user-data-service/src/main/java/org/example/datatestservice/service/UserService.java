@@ -1,7 +1,7 @@
 package org.example.datatestservice.service;
 
 import org.example.datatestservice.model.UserCredentials;
-import org.example.datatestservice.repository.UserRepository;
+import org.example.datatestservice.repository.UserCredentialsRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -9,10 +9,10 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
+    private final UserCredentialsRepository userCredentialsRepository;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserService(UserCredentialsRepository userCredentialsRepository) {
+        this.userCredentialsRepository = userCredentialsRepository;
     }
 
 
@@ -20,13 +20,13 @@ public class UserService {
         UserCredentials userCredentials = new UserCredentials();
         userCredentials.setUsername(userCredentialsDTO.getUsername());
         userCredentials.setEmail(userCredentialsDTO.getEmail());
-        userCredentials = userRepository.save(userCredentials);
+        userCredentials = userCredentialsRepository.save(userCredentials);
         userCredentialsDTO.setId(userCredentials.getId());
         return userCredentialsDTO;
     }
 
     public Optional<UserCredentials> getUserById(Long id) {
-        return userRepository.findById(id)
+        return userCredentialsRepository.findById(id)
                 .map(userCredentials -> {
                     UserCredentials dto = new UserCredentials();
                     dto.setId(userCredentials.getId());
