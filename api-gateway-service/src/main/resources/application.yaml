@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: API-GATEWAY-SERVICE
+  cloud:
+    gateway:
+      routes:
+        - id: user-data-service
+          uri: lb://USER-DATA-SERVICE
+          predicates:
+            - Path=/auth/**
+
+
+server:
+  port: 25001
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://localhost:25000/eureka/
