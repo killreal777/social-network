@@ -1,15 +1,17 @@
 package org.team.postservice.service;
 
-import org.team.postservice.entity.Post;
+import org.team.postservice.model.PostEntity;
 
 import java.util.List;
 
 public interface PostService {
-    Post createPost(Post post);
+    PostEntity createPost(PostEntity postEntity);
 
-    List<Post> getAllPosts();
+    List<PostEntity> getAllPosts();
 
-    Post getPost(int id);
+    List<PostEntity> getPostsByOwnerId(int ownerId);
 
-    void deletePost(int id);
+    PostEntity getPostById(int id);
+
+    void deletePostById(int id);
 }

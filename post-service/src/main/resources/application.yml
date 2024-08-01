@@ -5,3 +5,15 @@ spring:
   application:
     name: post-service
 
+  cloud:
+    aws:
+      credentials:
+        access-key: ???
+        secret-key: ???
+      region:
+        static: ru-central1
+      endpoint: https://storage.yandexcloud.net
+
+application:
+  bucket:
+    name: ???

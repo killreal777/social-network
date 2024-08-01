@@ -1,4 +1,4 @@
-package org.team.postservice.entity;
+package org.team.postservice.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,7 +13,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post {
+public class PostEntity {
     @Id
     @GeneratedValue
     private int id;
