@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=media'
+      - 'POSTGRES_PASSWORD=qwerty12345'
+      - 'POSTGRES_USER=admin'
+    ports:
+      - '5433:5432'
+  post-service:
+    build: post-service
+    depends_on:
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/media
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=qwerty12345
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - "8080"
