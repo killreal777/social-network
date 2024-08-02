@@ -2,18 +2,18 @@ spring:
   application:
     name: USER-DATA-SERVICE
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: a10052004
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/studs}
+    username: ${SPRING_DATASOURCE_USERNAME:s333291}
+    password: ${SPRING_DATASOURCE_PASSWORD:qwerty12345}
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
 
 server:
-  port: 25002
+  port: 0
 
 eureka:
   client:
     service-url:
-      defaultZone : http://localhost:25000/eureka/
+      defaultZone: ${EUREKA_CLIENT_SERVICE_URL:http://localhost:8761/eureka}

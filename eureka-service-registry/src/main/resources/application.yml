@@ -1,9 +1,0 @@
-eureka:
-  client:
-    register-with-eureka: false # отключаем регистрации eureka сервера, как клиента
-    fetch-registry: false # сервер сам у себя не будет спрашивать обновленный реестр сервисов
-server:
-  port: 25000
-spring:
-  application:
-    name: eureka-service-registry

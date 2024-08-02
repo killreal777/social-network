@@ -1,5 +1,11 @@
+networks:
+  app-net:
+    driver: bridge
+
 services:
   postgres:
+    networks:
+      - app-net
     image: 'postgres:latest'
     environment:
       - 'POSTGRES_DB=social-network'
@@ -7,25 +13,57 @@ services:
       - 'POSTGRES_PASSWORD=qwerty12345'
     ports:
       - '5433:5432'
-  like-service:
-    build: like-service
-    depends_on:
-      - postgres
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/social-network
-      - SPRING_DATASOURCE_USERNAME=admin
-      - SPRING_DATASOURCE_PASSWORD=qwerty12345
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  eureka-server:
+    networks:
+      - app-net
+    build: eureka-server
     ports:
-      - '8000'
-  post-service:
-    build: post-service
-    depends_on:
-      - postgres
+      - "8761:8761"
     environment:
+      - EUREKA_CLIENT_SERVICE_URL=http://eureka-server:8761/eureka
+
+  user-data-service:
+    networks:
+      - app-net
+    depends_on:
+      - eureka-server
+      - postgres
+    build: user-data-service
+    environment:
+      - EUREKA_CLIENT_SERVICE_URL=http://eureka-server:8761/eureka
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/social-network
       - SPRING_DATASOURCE_USERNAME=admin
       - SPRING_DATASOURCE_PASSWORD=qwerty12345
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     ports:
       - "8080"
+
+  post-service:
+    networks:
+      - app-net
+    depends_on:
+      - eureka-server
+      - postgres
+    build: post-service
+    environment:
+      - EUREKA_CLIENT_SERVICE_URL=http://eureka-server:8761/eureka
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/social-network
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=qwerty12345
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - "8080"
+
+  api-gateway:
+    networks:
+      - app-net
+    depends_on:
+      - eureka-server
+      - user-data-service
+      - post-service
+    build: api-gateway
+    ports:
+      - "8765:8765"
+    environment:
+      - EUREKA_CLIENT_SERVICE_URL=http://eureka-server:8761/eureka

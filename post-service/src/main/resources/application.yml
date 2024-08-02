@@ -1,10 +1,22 @@
 server:
-  port: 8080
+  port: 0
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_CLIENT_SERVICE_URL:http://localhost:8761/eureka}
 
 spring:
   application:
     name: post-service
-
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/studs}
+    username: ${SPRING_DATASOURCE_USERNAME:s333291}
+    password: ${SPRING_DATASOURCE_PASSWORD:qwerty12345}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
   cloud:
     aws:
       credentials:
@@ -17,3 +29,5 @@ spring:
 application:
   bucket:
     name: ???
+
+

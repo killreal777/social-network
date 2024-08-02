@@ -1,0 +1,57 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=social-network'
+      - 'POSTGRES_USER=admin'
+      - 'POSTGRES_PASSWORD=qwerty12345'
+    ports:
+      - '5433:5432'
+#  like-service:
+#    build: like-service
+#    depends_on:
+#      - postgres
+#    environment:
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/social-network
+#      - SPRING_DATASOURCE_USERNAME=admin
+#      - SPRING_DATASOURCE_PASSWORD=qwerty12345
+#      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+#    ports:
+#      - '8000'
+  post-service:
+    build: post-service
+    depends_on:
+      - eureka-service-registry
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/social-network
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=qwerty12345
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - "8080"
+
+  user-service:
+    build: user-data-service
+    depends_on:
+      - eureka-service-registry
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/social-network
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=qwerty12345
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - "25002"
+
+  eureka-service-registry:
+    build: eureka-service-registry
+    ports:
+      - "25000:25000"
+
+  api-gateway-service:
+    depends_on:
+      - eureka-service-registry
+    build: api-gateway-service
+    ports:
+      - "25001:25001"
