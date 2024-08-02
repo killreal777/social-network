@@ -7,10 +7,8 @@ services:
     networks:
       - app-net
     image: "postgres:latest"
-    environment:
-      - "POSTGRES_DB=social-network"
-      - "POSTGRES_USER=admin"
-      - "POSTGRES_PASSWORD=qwerty12345"
+    env_file:
+      - .env/postgres.env
     ports:
       - "5433:5432"
 
@@ -18,8 +16,6 @@ services:
     networks:
       - app-net
     build: eureka-server
-    environment:
-      - EUREKA_CLIENT_SERVICE_URL=http://eureka-server:8761/eureka
     ports:
       - "8761:8761"
 
@@ -30,12 +26,9 @@ services:
       - eureka-server
       - postgres
     build: user-service
-    environment:
-      - EUREKA_CLIENT_SERVICE_URL=http://eureka-server:8761/eureka
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/social-network
-      - SPRING_DATASOURCE_USERNAME=admin
-      - SPRING_DATASOURCE_PASSWORD=qwerty12345
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    env_file:
+      - .env/eureka-client.env
+      - .env/datasource.env
     ports:
       - "8080"
 
@@ -46,12 +39,10 @@ services:
       - eureka-server
       - postgres
     build: post-service
-    environment:
-      - EUREKA_CLIENT_SERVICE_URL=http://eureka-server:8761/eureka
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/social-network
-      - SPRING_DATASOURCE_USERNAME=admin
-      - SPRING_DATASOURCE_PASSWORD=qwerty12345
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    env_file:
+      - .env/eureka-client.env
+      - .env/datasource.env
+      - .env/aws-credentials.env
     ports:
       - "8080"
 
@@ -62,13 +53,9 @@ services:
       - eureka-server
       - postgres
     build: like-service
-    environment:
-      - EUREKA_CLIENT_SERVICE_URL=http://eureka-server:8761/eureka
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/social-network
-      - SPRING_DATASOURCE_USERNAME=admin
-      - SPRING_DATASOURCE_PASSWORD=qwerty12345
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-      - SPRING_JPA_SHOW_SQL=true
+    env_file:
+      - .env/eureka-client.env
+      - .env/datasource.env
     ports:
       - "8080"
 
@@ -81,7 +68,7 @@ services:
       - post-service
       - like-service
     build: api-gateway
-    environment:
-      - EUREKA_CLIENT_SERVICE_URL=http://eureka-server:8761/eureka
+    env_file:
+      - .env/eureka-client.env
     ports:
       - "8765:8765"

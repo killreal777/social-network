@@ -18,15 +18,15 @@ spring:
   cloud:
     aws:
       credentials:
-        access-key: ???
-        secret-key: ???
+        access-key: ${SPRING_CLOUD_AWS_CREDENTIALS_ACCESS_KEY}
+        secret-key: ${SPRING_CLOUD_AWS_CREDENTIALS_SECRET_KEY}
       region:
         static: ru-central1
       endpoint: https://storage.yandexcloud.net
 
 application:
   bucket:
-    name: ???
+    name: killreal777-test-bucket
 
 eureka:
   client:
