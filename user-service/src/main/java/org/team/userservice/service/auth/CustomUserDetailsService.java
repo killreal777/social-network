@@ -1,8 +1,8 @@
-package org.example.datatestservice.service.auth;
+package org.team.userservice.service.auth;
 
-import org.example.datatestservice.model.UserCredentials;
-import org.example.datatestservice.repository.UserCredentialsRepository;
-import org.example.datatestservice.security.CustomUserDetails;
+import org.team.userservice.model.UserCredentials;
+import org.team.userservice.repository.UserCredentialsRepository;
+import org.team.userservice.security.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

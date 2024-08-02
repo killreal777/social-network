@@ -1,8 +1,8 @@
-package org.example.datatestservice.controller;
+package org.team.userservice.controller;
 
-import org.example.datatestservice.dto.AuthRequest;
-import org.example.datatestservice.model.UserCredentials;
-import org.example.datatestservice.service.auth.AuthService;
+import org.team.userservice.dto.AuthRequest;
+import org.team.userservice.model.UserCredentials;
+import org.team.userservice.service.auth.AuthService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

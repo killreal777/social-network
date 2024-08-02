@@ -1,6 +1,6 @@
-package org.example.datatestservice.security;
+package org.team.userservice.security;
 
-import org.example.datatestservice.model.UserCredentials;
+import org.team.userservice.model.UserCredentials;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

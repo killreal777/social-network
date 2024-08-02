@@ -1,6 +1,6 @@
-package org.example.datatestservice.configuration;
+package org.team.userservice.configuration;
 
-import org.example.datatestservice.service.auth.CustomUserDetailsService;
+import org.team.userservice.service.auth.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

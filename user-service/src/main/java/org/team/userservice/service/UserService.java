@@ -1,7 +1,7 @@
-package org.example.datatestservice.service;
+package org.team.userservice.service;
 
-import org.example.datatestservice.model.UserCredentials;
-import org.example.datatestservice.repository.UserCredentialsRepository;
+import org.team.userservice.model.UserCredentials;
+import org.team.userservice.repository.UserCredentialsRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

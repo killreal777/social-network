@@ -1,8 +1,8 @@
-package org.example.datatestservice.controller;
+package org.team.userservice.controller;
 
 
-import org.example.datatestservice.model.UserCredentials;
-import org.example.datatestservice.service.UserService;
+import org.team.userservice.model.UserCredentials;
+import org.team.userservice.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

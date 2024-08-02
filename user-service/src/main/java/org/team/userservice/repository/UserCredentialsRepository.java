@@ -1,8 +1,7 @@
-package org.example.datatestservice.repository;
+package org.team.userservice.repository;
 
-import org.example.datatestservice.model.UserCredentials;
+import org.team.userservice.model.UserCredentials;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 

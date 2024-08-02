@@ -1,4 +1,4 @@
-package org.example.datatestservice.dto;
+package org.team.userservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

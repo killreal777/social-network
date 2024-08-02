@@ -1,4 +1,4 @@
-package org.example.datatestservice.model;
+package org.team.userservice.model;
 
 
 import jakarta.persistence.*;

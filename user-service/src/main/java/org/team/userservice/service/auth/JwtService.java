@@ -1,4 +1,4 @@
-package org.example.datatestservice.service.auth;
+package org.team.userservice.service.auth;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
