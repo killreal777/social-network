@@ -55,6 +55,22 @@ services:
     ports:
       - "8080"
 
+  like-service:
+    networks:
+      - app-net
+    depends_on:
+      - eureka-server
+      - postgres
+    build: like-service
+    environment:
+      - EUREKA_CLIENT_SERVICE_URL=http://eureka-server:8761/eureka
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/social-network
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=qwerty12345
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - "8080"
+
   api-gateway:
     networks:
       - app-net
@@ -62,6 +78,7 @@ services:
       - eureka-server
       - user-data-service
       - post-service
+      - like-service
     build: api-gateway
     ports:
       - "8765:8765"

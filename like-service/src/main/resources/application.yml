@@ -1,8 +1,19 @@
+server:
+  port: 0
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_CLIENT_SERVICE_URL:http://localhost:8761/eureka}
+
 spring:
   application:
     name: like-service
-
-server:
-  port: 8000
-
-
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/studs}
+    username: ${SPRING_DATASOURCE_USERNAME:s333291}
+    password: ${SPRING_DATASOURCE_PASSWORD:qwerty12345}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
