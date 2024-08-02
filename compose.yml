@@ -23,13 +23,13 @@ services:
     environment:
       - EUREKA_CLIENT_SERVICE_URL=http://eureka-server:8761/eureka
 
-  user-data-service:
+  user-service:
     networks:
       - app-net
     depends_on:
       - eureka-server
       - postgres
-    build: user-data-service
+    build: user-service
     environment:
       - EUREKA_CLIENT_SERVICE_URL=http://eureka-server:8761/eureka
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/social-network
@@ -76,7 +76,7 @@ services:
       - app-net
     depends_on:
       - eureka-server
-      - user-data-service
+      - user-service
       - post-service
       - like-service
     build: api-gateway

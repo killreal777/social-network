@@ -12,7 +12,7 @@
     <modules>
         <module>eureka-server</module>
         <module>api-gateway</module>
-        <module>user-data-service</module>
+        <module>user-service</module>
         <module>post-service</module>
         <module>like-service</module>
     </modules>

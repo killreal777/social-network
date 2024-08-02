@@ -13,8 +13,8 @@ spring:
           lower-case-service-id: true
 
       routes:
-        - id: user-data-service
-          uri: lb://USER-DATA-SERVICE
+        - id: user-service
+          uri: lb://user-service
           predicates:
             - Path=/auth/**
         - id: post-service

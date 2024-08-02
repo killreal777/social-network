@@ -10,11 +10,11 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>user-data-service</artifactId>
+    <artifactId>user-service</artifactId>
     <version>${revision}</version>
 
-    <name>user-data-service</name>
-    <description>user-data-service</description>
+    <name>user-service</name>
+    <description>user-service</description>
 
 
 
@@ -72,12 +72,6 @@
             <artifactId>lombok</artifactId>
             <version>1.18.30</version>
             <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
