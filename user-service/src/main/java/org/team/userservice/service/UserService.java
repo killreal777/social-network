@@ -1,40 +1,28 @@
 package org.team.userservice.service;
 
-import org.team.userservice.model.UserCredentials;
-import org.team.userservice.repository.UserCredentialsRepository;
+import lombok.RequiredArgsConstructor;
+import org.team.userservice.model.User;
+import org.team.userservice.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
+    private final UserRepository userRepository;
 
-    private final UserCredentialsRepository userCredentialsRepository;
-
-    public UserService(UserCredentialsRepository userCredentialsRepository) {
-        this.userCredentialsRepository = userCredentialsRepository;
+    public User saveUser(User userDto) {
+        User user = User.builder()
+                .username(userDto.getUsername())
+                .email(userDto.getEmail())
+                .build();
+        user = userRepository.save(user);
+        userDto.setId(user.getId());
+        return userDto;
     }
 
-
-    public UserCredentials saveUser(UserCredentials userCredentialsDTO) {
-        UserCredentials userCredentials = new UserCredentials();
-        userCredentials.setUsername(userCredentialsDTO.getUsername());
-        userCredentials.setEmail(userCredentialsDTO.getEmail());
-        userCredentials = userCredentialsRepository.save(userCredentials);
-        userCredentialsDTO.setId(userCredentials.getId());
-        return userCredentialsDTO;
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
     }
-
-    public Optional<UserCredentials> getUserById(Long id) {
-        return userCredentialsRepository.findById(id)
-                .map(userCredentials -> {
-                    UserCredentials dto = new UserCredentials();
-                    dto.setId(userCredentials.getId());
-                    dto.setUsername(userCredentials.getUsername());
-                    dto.setEmail(userCredentials.getEmail());
-                    return dto;
-                });
-    }
-
-
 }

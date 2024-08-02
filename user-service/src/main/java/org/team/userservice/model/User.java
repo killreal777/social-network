@@ -1,15 +1,16 @@
 package org.team.userservice.model;
 
-
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
+@Table(name = "users")
 @Setter
 @Getter
-@Table(name = "users")
-public class UserCredentials {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,5 +20,4 @@ public class UserCredentials {
     private String email;
 
     private String password;
-
 }

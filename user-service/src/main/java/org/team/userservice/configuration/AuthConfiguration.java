@@ -1,6 +1,6 @@
 package org.team.userservice.configuration;
 
-import org.team.userservice.service.auth.CustomUserDetailsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,18 +16,9 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class AuthConfiguration {
-
-
-    /**
-     * Определяем сервис хранения данных о пользователях Spring Security
-     */
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new CustomUserDetailsService();
-    }
-
+    private final UserDetailsService userDetailsService;
 
     /**
      * Определяем фильтры
@@ -58,18 +49,14 @@ public class AuthConfiguration {
         return config.getAuthenticationManager();
     }
 
-
     /**
      * Регистрируем DAO провайдер, который будет использоваться внутри AuthenticationManager для проверок
      */
-
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailsService());
+        authenticationProvider.setUserDetailsService(userDetailsService);
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
-
-
 }

@@ -6,13 +6,11 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.function.Predicate;
 
-
 /**
  * Класс проверяющий, пришел пользователь за регистрацией, или он хочет пройти уже имею токен
  */
 @Component
 public class RouteValidator {
-
     // установим список url, от которых AuthFilter не будет ждать аутентификации
     // ведь эти адреса нужны для регистрации
     public static final List<String> openApiEndpoints = List.of(

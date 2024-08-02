@@ -1,37 +1,28 @@
 package org.team.userservice.service.auth;
 
-
-import org.team.userservice.model.UserCredentials;
-import org.team.userservice.repository.UserCredentialsRepository;
+import lombok.RequiredArgsConstructor;
+import org.team.userservice.model.User;
+import org.team.userservice.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AuthService {
+    private final UserRepository repository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
-    private UserCredentialsRepository repository;
-
-    private PasswordEncoder passwordEncoder;
-
-    private JwtService jwtService;
-
-
-    public AuthService(UserCredentialsRepository repository, PasswordEncoder passwordEncoder, JwtService jwtService) {
-        this.repository = repository;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtService = jwtService;
-    }
-
-    public String saveUser (UserCredentials userCredentials){
-        userCredentials.setPassword(passwordEncoder.encode(userCredentials.getPassword())); // шифруем пароль пользователя
-        repository.save(userCredentials);
+    public String saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword())); // шифруем пароль пользователя
+        repository.save(user);
         return "new user add to system";
     }
 
     /**
      * Генерация JWT токена
      */
-    public String generateToken(String username){
+    public String generateToken(String username) {
         return jwtService.generateToken(username);
     }
 
@@ -41,12 +32,4 @@ public class AuthService {
     public void validateToken(String token) {
         jwtService.validateToken(token);
     }
-
-
-
-
-
-
-
-
 }

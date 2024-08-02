@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  * Сервис отвечающий за генерацию и валидацию JWT токенов
  */
@@ -19,14 +18,16 @@ import java.util.Map;
 public class JwtService {
     public static final String SECRET = "5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437";
 
-
     /**
      * Метод валидации JWT токена
      *
      * @param token
      */
     public void validateToken(String token) {
-        Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token);
+        Jwts.parserBuilder()
+                .setSigningKey(getSignKey())
+                .build()
+                .parseClaimsJws(token);
     }
 
     /**
@@ -37,7 +38,6 @@ public class JwtService {
         return createToken(claims, userName);
     }
 
-
     /**
      * Метод создания JWT токена
      */
@@ -47,7 +47,8 @@ public class JwtService {
                 .setSubject(userName)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
-                .signWith(getSignKey(), SignatureAlgorithm.HS256).compact(); // делаем подпись токена
+                .signWith(getSignKey(), SignatureAlgorithm.HS256) // делаем подпись токена
+                .compact();
     }
 
     /**

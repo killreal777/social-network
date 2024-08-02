@@ -1,29 +1,27 @@
 package org.team.userservice.service.auth;
 
-import org.team.userservice.model.UserCredentials;
-import org.team.userservice.repository.UserCredentialsRepository;
+import lombok.RequiredArgsConstructor;
+import org.team.userservice.model.User;
+import org.team.userservice.repository.UserRepository;
 import org.team.userservice.security.CustomUserDetails;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Component
+@Service
+@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
-
-    //todo лучше через конструктор
-    @Autowired
-    private UserCredentialsRepository userCredentialsRepository;
+    private final UserRepository userRepository;
 
     /**
-     * Метод позволяющий загружать юзеров из нашей бд в хранилище Spring Security
+     * Метод позволяющий загружать юзеров из нашей БД в хранилище Spring Security
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserCredentials> credentials = userCredentialsRepository.findByUsername(username);
+        Optional<User> credentials = userRepository.findByUsername(username);
         //переводим наши сущности в объекты spring security
         return credentials.map(CustomUserDetails::new).orElseThrow(() -> new UsernameNotFoundException("User not found with name :" + username));
     }

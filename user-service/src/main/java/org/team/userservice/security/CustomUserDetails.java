@@ -1,6 +1,6 @@
 package org.team.userservice.security;
 
-import org.team.userservice.model.UserCredentials;
+import org.team.userservice.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,17 +9,14 @@ import java.util.Collection;
 /**
  * Класс определяющий сущности, хранящиеся в хранилище Spring Security
  */
-public class CustomUserDetails  implements UserDetails {
-
+public class CustomUserDetails implements UserDetails {
     private final String username;
-
     private final String password;
 
-    public CustomUserDetails(UserCredentials userCredentials){
-        this.username = userCredentials.getUsername();
-        this.password = userCredentials.getPassword();
+    public CustomUserDetails(User user) {
+        this.username = user.getUsername();
+        this.password = user.getPassword();
     }
-
 
     //метод для определения списка ролей пользователя, позже реализуем
     @Override
