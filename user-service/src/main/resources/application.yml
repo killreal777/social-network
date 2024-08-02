@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: like-service
+    name: user-service
 
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/studs}

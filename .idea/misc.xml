@@ -9,7 +9,17 @@
         <option value="$PROJECT_DIR$/eureka-service-registry/pom.xml" />
         <option value="$PROJECT_DIR$/data-test-service/pom.xml" />
         <option value="$PROJECT_DIR$/user-data-service/pom.xml" />
+        <option value="$PROJECT_DIR$/like-service/pom.xml" />
+        <option value="$PROJECT_DIR$/post-service/pom.xml" />
+        <option value="$PROJECT_DIR$/api-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/eureka-server/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/api-gateway-service/pom.xml" />
+        <option value="$PROJECT_DIR$/eureka-service-registry/pom.xml" />
+      </set>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />
   </component>

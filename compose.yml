@@ -1,31 +1,74 @@
+networks:
+  app-net:
+    driver: bridge
+
 services:
   postgres:
-    image: 'postgres:latest'
-    environment:
-      - 'POSTGRES_DB=social-network'
-      - 'POSTGRES_USER=admin'
-      - 'POSTGRES_PASSWORD=qwerty12345'
+    networks:
+      - app-net
+    image: "postgres:latest"
+    env_file:
+      - .env/postgres.env
     ports:
-      - '5433:5432'
-  like-service:
-    build: like-service
-    depends_on:
-      - postgres
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/social-network
-      - SPRING_DATASOURCE_USERNAME=admin
-      - SPRING_DATASOURCE_PASSWORD=qwerty12345
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - "5433:5432"
+
+  eureka-server:
+    networks:
+      - app-net
+    build: eureka-server
     ports:
-      - '8000'
-  post-service:
-    build: post-service
+      - "8761:8761"
+
+  user-service:
+    networks:
+      - app-net
     depends_on:
+      - eureka-server
       - postgres
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/social-network
-      - SPRING_DATASOURCE_USERNAME=admin
-      - SPRING_DATASOURCE_PASSWORD=qwerty12345
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    build: user-service
+    env_file:
+      - .env/eureka-client.env
+      - .env/datasource.env
     ports:
       - "8080"
+
+  post-service:
+    networks:
+      - app-net
+    depends_on:
+      - eureka-server
+      - postgres
+    build: post-service
+    env_file:
+      - .env/eureka-client.env
+      - .env/datasource.env
+      - .env/aws-credentials.env
+    ports:
+      - "8080"
+
+  like-service:
+    networks:
+      - app-net
+    depends_on:
+      - eureka-server
+      - postgres
+    build: like-service
+    env_file:
+      - .env/eureka-client.env
+      - .env/datasource.env
+    ports:
+      - "8080"
+
+  api-gateway:
+    networks:
+      - app-net
+    depends_on:
+      - eureka-server
+      - user-service
+      - post-service
+      - like-service
+    build: api-gateway
+    env_file:
+      - .env/eureka-client.env
+    ports:
+      - "8765:8765"

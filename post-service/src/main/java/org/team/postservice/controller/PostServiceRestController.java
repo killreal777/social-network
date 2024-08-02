@@ -44,7 +44,7 @@ public class PostServiceRestController {
         return ResponseEntity.ok(PostMapper.toDto(postEntity));
     }
 
-    @GetMapping("echoFile")
+    @GetMapping("/echoFile")
     // Debug
     public ResponseEntity<Resource> echoFile(@RequestParam MultipartFile file) throws IOException {
         HttpHeaders headers = new HttpHeaders();
