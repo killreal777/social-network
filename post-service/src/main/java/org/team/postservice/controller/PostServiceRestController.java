@@ -40,6 +40,11 @@ public class PostServiceRestController {
         return ResponseEntity.ok(postService.getPostById(postId));
     }
 
+    @GetMapping("/exists/{postId}")
+    public ResponseEntity<Boolean> isPostExists(@PathVariable int postId) {
+        return ResponseEntity.ok(postService.isPostExists(postId));
+    }
+
     @GetMapping("/images/{postId}")
     public ResponseEntity<ByteArrayResource> getImageByPostId(@PathVariable int postId) {
         ByteArrayResource file = postService.getPostImageByPostId(postId);

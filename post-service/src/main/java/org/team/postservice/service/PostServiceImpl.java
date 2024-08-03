@@ -41,6 +41,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public Boolean isPostExists(int id) {
+        return postRepository.existsById(id);
+    }
+
+    @Override
     public ByteArrayResource getPostImageByPostId(int id) {
         if (!doesPostHaveImage(id)) throw new NoImageForPostException();
         return fileService.get(filenameByPostId(id));

@@ -14,6 +14,8 @@ public interface PostService {
 
     PostDto getPostById(int id);
 
+    Boolean isPostExists(int id);
+
     ByteArrayResource getPostImageByPostId(int id);
 
     void deletePostById(int id);
