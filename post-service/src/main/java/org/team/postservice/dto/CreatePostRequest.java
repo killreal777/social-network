@@ -3,7 +3,7 @@ package org.team.postservice.dto;
 import lombok.Data;
 
 @Data
-public class CreatePostRequestDto {
+public class CreatePostRequest {
     private int ownerId;
 
     private String textContent;

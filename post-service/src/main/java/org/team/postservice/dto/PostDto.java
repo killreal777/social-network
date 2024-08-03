@@ -12,4 +12,14 @@ public class PostDto {
     private int ownerId;
 
     private String textContent;
+
+    private boolean hasImage;
+
+    /**
+     * Getter for hasImage field with fixed method name (hasImage instead of Lombok's isHasImage).
+     * Uses Lombok's getter: returns isHasImage result.
+     */
+    public boolean hasImage() {
+        return this.isHasImage();
+    }
 }
