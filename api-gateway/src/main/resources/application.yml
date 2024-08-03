@@ -30,6 +30,10 @@ spring:
           filters:
             - name: AuthenticationFilter
 
+application:
+  security:
+    enabled: ${APPLICATION_SECURITY_ENABLED:false}
+
 eureka:
   client:
     service-url:

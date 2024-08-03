@@ -1,5 +1,6 @@
 package org.team.apigateway.filter;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.team.apigateway.util.JwtUtil;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AbstractGatewayFilterFactory.NameConfig> {
+    @Value("${application.security.enabled}")
+    private boolean securityEnabled;
 
     private final RouteValidator routeValidator;
 
@@ -25,6 +28,8 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<AbstractG
 
     @Override
     public GatewayFilter apply(AbstractGatewayFilterFactory.NameConfig config) {
+        if (!securityEnabled) return (exchange, chain) -> chain.filter(exchange);
+
         return ((exchange, chain) -> {
             if (routeValidator.isSecured.test(exchange.getRequest())) {
                 // проверка на отсутствие заголовка авторизации
