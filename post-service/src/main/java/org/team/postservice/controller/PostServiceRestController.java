@@ -1,106 +1,69 @@
 package org.team.postservice.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.team.postservice.dto.CreatePostRequest;
 import org.team.postservice.dto.PostDto;
-import org.team.postservice.model.PostEntity;
-import org.team.postservice.service.FileStorageService;
 import org.team.postservice.service.PostService;
+import org.team.postservice.validator.ValidImage;
 
-import java.io.IOException;
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("/api/posts")
 @RequiredArgsConstructor
 public class PostServiceRestController {
     private final PostService postService;
-    private final FileStorageService fileStorageService;
 
-    @PostMapping
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<PostDto> createPost(
-            @RequestParam int ownerId,
-            @RequestParam String textContent,
-            @RequestParam MultipartFile file
-    ) {
-        PostEntity postEntity = PostEntity.builder()
-                .ownerId(ownerId)
-                .textContent(textContent)
-                .build();
-
-        postEntity = postService.createPost(postEntity);
-
-        int postId = postEntity.getId();
-        String postFileName = Integer.toString(postId);
-
-        fileStorageService.upload(postFileName, file);
-
-        return ResponseEntity.ok(PostMapper.toDto(postEntity));
-    }
-
-    @GetMapping("/echoFile")
-    // Debug
-    public ResponseEntity<Resource> echoFile(@RequestParam MultipartFile file) throws IOException {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.IMAGE_JPEG);
-        headers.setContentLength(file.getResource().contentLength());
-
-        return ResponseEntity.ok()
-                .headers(headers)
-                .body(file.getResource());
-    }
-
-    @GetMapping
-    // Debug
-    public ResponseEntity<List<PostEntity>> getAllPost() {
-        return ResponseEntity.ok(postService.getAllPosts());
+            @Valid @RequestPart CreatePostRequest post,
+            @ValidImage @RequestPart MultipartFile image) {
+        return ResponseEntity.ok(postService.createPost(post, image));
     }
 
     @GetMapping("/users/{ownerId}")
     public ResponseEntity<List<PostDto>> getPostsByOwnerId(@PathVariable int ownerId) {
-        List<PostDto> responseList = postService.getPostsByOwnerId(ownerId).stream()
-                .map(PostMapper::toDto).toList();
-
-        return ResponseEntity.ok(responseList);
+        return ResponseEntity.ok(postService.getPostsByOwnerId(ownerId));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PostDto> getPostById(@PathVariable int id) {
-        return ResponseEntity.ok(PostMapper.toDto(postService.getPostById(id)));
+    @GetMapping("/{postId}")
+    public ResponseEntity<PostDto> getPostById(@PathVariable int postId) {
+        return ResponseEntity.ok(postService.getPostById(postId));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePostById(@PathVariable Integer id) {
-        postService.deletePostById(id);
+    @GetMapping("/exists/{postId}")
+    public ResponseEntity<Boolean> isPostExists(@PathVariable int postId) {
+        return ResponseEntity.ok(postService.isPostExists(postId));
+    }
+
+    @GetMapping("/images/{postId}")
+    public ResponseEntity<ByteArrayResource> getImageByPostId(@PathVariable int postId) {
+        ByteArrayResource file = postService.getPostImageByPostId(postId);
+        HttpHeaders headers = createHttpHeadersForImageResponse(file);
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(file);
+    }
+
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<Void> deletePostById(@PathVariable int postId) {
+        postService.deletePostById(postId);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/files/{postId}")
-    public ResponseEntity<ByteArrayResource> getFileByPostId(@PathVariable int postId) {
-        return ResponseEntity.ok(fileStorageService.download(Integer.toString(postId)));
-    }
-
-    private static class PostMapper {
-        public static PostEntity toEntity(PostDto postDto) {
-            return PostEntity.builder()
-                    .id(postDto.getId())
-                    .ownerId(postDto.getOwnerId())
-                    .textContent(postDto.getTextContent())
-                    .build();
-        }
-
-        public static PostDto toDto(PostEntity postEntity) {
-            return PostDto.builder()
-                    .id(postEntity.getId())
-                    .ownerId(postEntity.getOwnerId())
-                    .textContent(postEntity.getTextContent())
-                    .build();
-        }
+    private HttpHeaders createHttpHeadersForImageResponse(ByteArrayResource file) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG);
+        headers.setContentLength(file.contentLength());
+        return headers;
     }
 }

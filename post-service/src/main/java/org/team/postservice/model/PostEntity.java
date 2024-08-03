@@ -5,7 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
+import org.team.postservice.validator.ValidPost;
 
+@ValidPost
 @Entity
 @Table
 @Builder
@@ -20,5 +22,15 @@ public class PostEntity {
 
     private int ownerId;
 
-    private String textContent;
+    private String text;
+
+    private boolean hasImage;
+
+    /**
+     * Getter for hasImage field with fixed method name (hasImage instead of Lombok's isHasImage).
+     * Uses Lombok's getter: returns isHasImage result.
+     */
+    public boolean hasImage() {
+        return this.isHasImage();
+    }
 }

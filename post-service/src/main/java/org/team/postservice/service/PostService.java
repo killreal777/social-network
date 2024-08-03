@@ -1,17 +1,22 @@
 package org.team.postservice.service;
 
-import org.team.postservice.model.PostEntity;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.web.multipart.MultipartFile;
+import org.team.postservice.dto.CreatePostRequest;
+import org.team.postservice.dto.PostDto;
 
 import java.util.List;
 
 public interface PostService {
-    PostEntity createPost(PostEntity postEntity);
+    PostDto createPost(CreatePostRequest createPostRequest, MultipartFile image);
 
-    List<PostEntity> getAllPosts();
+    List<PostDto> getPostsByOwnerId(int id);
 
-    List<PostEntity> getPostsByOwnerId(int ownerId);
+    PostDto getPostById(int id);
 
-    PostEntity getPostById(int id);
+    Boolean isPostExists(int id);
+
+    ByteArrayResource getPostImageByPostId(int id);
 
     void deletePostById(int id);
 }
