@@ -83,7 +83,14 @@ public class PostServiceRestController {
 
     @GetMapping("/files/{postId}")
     public ResponseEntity<ByteArrayResource> getFileByPostId(@PathVariable int postId) {
-        return ResponseEntity.ok(fileStorageService.download(Integer.toString(postId)));
+        String filename = Integer.toString(postId);
+        ByteArrayResource file = fileStorageService.download(filename);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG);
+        headers.setContentLength(file.contentLength());
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(file);
     }
 
     private static class PostMapper {
