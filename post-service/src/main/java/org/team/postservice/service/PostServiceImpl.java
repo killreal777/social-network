@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.team.postservice.dto.CreatePostRequest;
 import org.team.postservice.dto.PostDto;
+import org.team.postservice.exception.NoImageForPostException;
+import org.team.postservice.exception.NoSuchPostException;
 import org.team.postservice.model.PostEntity;
 import org.team.postservice.repository.PostRepository;
 
@@ -35,20 +37,20 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostDto getPostById(int id) {
-        return PostMapper.toDto(postRepository.findById(id).orElseThrow());
+        return PostMapper.toDto(postRepository.findById(id).orElseThrow(NoSuchPostException::new));
     }
 
     @Override
     public ByteArrayResource getPostImageByPostId(int id) {
-        if (!doesPostHaveImage(id)) throw new RuntimeException();
+        if (!doesPostHaveImage(id)) throw new NoImageForPostException();
         return fileService.get(filenameByPostId(id));
     }
 
     @Override
     @Transactional
     public void deletePostById(int id) {
-        postRepository.deleteById(id);
         if (doesPostHaveImage(id)) fileService.delete(filenameByPostId(id));
+        postRepository.deleteById(id);
     }
 
     private boolean doesPostHaveImage(int postId) {

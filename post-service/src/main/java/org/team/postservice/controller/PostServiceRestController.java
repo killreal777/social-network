@@ -6,6 +6,7 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.team.postservice.dto.CreatePostRequest;
@@ -15,6 +16,7 @@ import org.team.postservice.validator.ValidImage;
 
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("/api/posts")
 @RequiredArgsConstructor
@@ -25,8 +27,6 @@ public class PostServiceRestController {
     public ResponseEntity<PostDto> createPost(
             @Valid @RequestPart CreatePostRequest post,
             @ValidImage @RequestPart MultipartFile image) {
-        System.out.println(post);
-        System.out.println(image.isEmpty());
         return ResponseEntity.ok(postService.createPost(post, image));
     }
 

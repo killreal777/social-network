@@ -7,6 +7,6 @@ import lombok.Data;
 public class CreatePostRequest {
     private int ownerId;
 
-    @Size(max = 30, message = "Text content less than or equals to 30 characters")
+    @Size(max = 30, message = "Text must be less than or equals to 30 characters")
     private String text;
 }
