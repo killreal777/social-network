@@ -2,7 +2,6 @@ package org.team.postservice.dto;
 
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @Builder
@@ -11,7 +10,7 @@ public class PostDto {
 
     private int ownerId;
 
-    private String textContent;
+    private String text;
 
     private boolean hasImage;
 

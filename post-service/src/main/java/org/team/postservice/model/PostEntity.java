@@ -5,7 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
+import org.team.postservice.validator.ValidPost;
 
+@ValidPost
 @Entity
 @Table
 @Builder
@@ -20,7 +22,7 @@ public class PostEntity {
 
     private int ownerId;
 
-    private String textContent;
+    private String text;
 
     private boolean hasImage;
 

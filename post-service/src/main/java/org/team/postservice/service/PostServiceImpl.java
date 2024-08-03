@@ -21,7 +21,7 @@ public class PostServiceImpl implements PostService {
     @Override
     @Transactional
     public PostDto createPost(CreatePostRequest createPostRequest, MultipartFile image) {
-        boolean hasImage = !image.isEmpty();
+        boolean hasImage = image != null && !image.isEmpty();
         PostEntity postEntity = PostMapper.toEntity(createPostRequest, hasImage);
         postEntity = postRepository.save(postEntity);
         if (hasImage) fileService.save(filenameByPostId(postEntity.getId()), image);
@@ -63,7 +63,7 @@ public class PostServiceImpl implements PostService {
         public static PostEntity toEntity(CreatePostRequest createPostRequest, boolean hasImage) {
             return PostEntity.builder()
                     .ownerId(createPostRequest.getOwnerId())
-                    .textContent(createPostRequest.getTextContent())
+                    .text(createPostRequest.getText())
                     .hasImage(hasImage)
                     .build();
         }
@@ -72,7 +72,7 @@ public class PostServiceImpl implements PostService {
             return PostDto.builder()
                     .id(postEntity.getId())
                     .ownerId(postEntity.getOwnerId())
-                    .textContent(postEntity.getTextContent())
+                    .text(postEntity.getText())
                     .hasImage(postEntity.hasImage())
                     .build();
         }

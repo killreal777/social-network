@@ -1,5 +1,6 @@
 package org.team.postservice.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
@@ -10,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.team.postservice.dto.CreatePostRequest;
 import org.team.postservice.dto.PostDto;
 import org.team.postservice.service.PostService;
+import org.team.postservice.validator.ValidImage;
 
 import java.util.List;
 
@@ -21,8 +23,10 @@ public class PostServiceRestController {
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<PostDto> createPost(
-            @RequestPart CreatePostRequest post,
-            @RequestPart MultipartFile image) {
+            @Valid @RequestPart CreatePostRequest post,
+            @ValidImage @RequestPart MultipartFile image) {
+        System.out.println(post);
+        System.out.println(image.isEmpty());
         return ResponseEntity.ok(postService.createPost(post, image));
     }
 
