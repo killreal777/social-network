@@ -1,6 +1,6 @@
-package org.team.likeservice.service;
+package org.team.translateservice.service;
 
-import org.team.likeservice.model.Like;
+import org.team.translateservice.model.Like;
 
 import java.util.List;
 

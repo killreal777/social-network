@@ -29,6 +29,12 @@ spring:
             - Path=/api/likes/**
           filters:
             - name: AuthenticationFilter
+        - id: translate-service
+          uri: lb://translate-service
+          predicates:
+            - Path=/api/translate/**
+          filters:
+            - name: AuthenticationFilter
 
 application:
   security:

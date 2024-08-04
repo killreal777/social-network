@@ -1,9 +1,9 @@
-package org.team.likeservice.service;
+package org.team.translateservice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.team.likeservice.model.Like;
-import org.team.likeservice.repository.LikeRepository;
+import org.team.translateservice.model.Like;
+import org.team.translateservice.repository.LikeRepository;
 
 import java.util.List;
 

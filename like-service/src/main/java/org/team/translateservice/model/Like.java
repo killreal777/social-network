@@ -1,4 +1,4 @@
-package org.team.likeservice.model;
+package org.team.translateservice.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

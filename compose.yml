@@ -59,6 +59,17 @@ services:
     ports:
       - "8080"
 
+  translate-service:
+    networks:
+      - app-net
+    depends_on:
+      - eureka-server
+    build: translate-service
+    env_file:
+      - .env/eureka-client.env
+    ports:
+      - "8080"
+
   api-gateway:
     networks:
       - app-net
@@ -67,6 +78,7 @@ services:
       - user-service
       - post-service
       - like-service
+      - translate-service
     build: api-gateway
     env_file:
       - .env/eureka-client.env

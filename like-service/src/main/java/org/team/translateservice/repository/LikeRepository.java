@@ -1,7 +1,7 @@
-package org.team.likeservice.repository;
+package org.team.translateservice.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.team.likeservice.model.Like;
+import org.team.translateservice.model.Like;
 
 import java.util.List;
 
