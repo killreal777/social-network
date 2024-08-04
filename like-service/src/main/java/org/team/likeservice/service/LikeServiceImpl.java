@@ -1,5 +1,6 @@
 package org.team.likeservice.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.team.likeservice.client.PostServiceClient;
@@ -16,14 +17,22 @@ public class LikeServiceImpl implements LikeService {
     private final PostServiceClient postServiceClient;
 
     @Override
+    @Transactional
     public Like setLikeToPost(int postId, int userId) {
         checkPostExistence(postId);
         return likeRepository.save(new Like(postId, userId));
     }
 
     @Override
+    @Transactional
     public void removeLikeFromPost(int postId, int userId) {
         likeRepository.delete(new Like(postId, userId));
+    }
+
+    @Override
+    @Transactional
+    public void removeAllLikesFromPost(int postId) {
+        likeRepository.deleteAllByPostId(postId);
     }
 
     @Override

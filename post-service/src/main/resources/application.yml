@@ -24,9 +24,20 @@ spring:
         static: ru-central1
       endpoint: https://storage.yandexcloud.net
 
+  kafka:
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    producer:
+      client-id: "post-service"
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
 application:
-  bucket:
-    name: killreal777-test-bucket
+  aws:
+    bucket:
+      name: killreal777-test-bucket
+  kafka:
+    topics:
+      delete-post: "delete-post"
 
 eureka:
   client:

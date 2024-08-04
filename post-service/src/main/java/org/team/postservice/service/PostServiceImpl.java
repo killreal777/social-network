@@ -9,6 +9,7 @@ import org.team.postservice.dto.CreatePostRequest;
 import org.team.postservice.dto.PostDto;
 import org.team.postservice.exception.NoImageForPostException;
 import org.team.postservice.exception.NoSuchPostException;
+import org.team.postservice.kafka.PostEventProducer;
 import org.team.postservice.model.PostEntity;
 import org.team.postservice.repository.PostRepository;
 
@@ -19,6 +20,7 @@ import java.util.List;
 public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
     private final FileService fileService;
+    private final PostEventProducer postEventProducer;
 
     @Override
     @Transactional
@@ -56,6 +58,7 @@ public class PostServiceImpl implements PostService {
     public void deletePostById(int id) {
         if (doesPostHaveImage(id)) fileService.delete(filenameByPostId(id));
         postRepository.deleteById(id);
+        postEventProducer.createDeletePostEvent(id);
     }
 
     private boolean doesPostHaveImage(int postId) {

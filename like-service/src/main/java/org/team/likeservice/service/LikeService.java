@@ -9,6 +9,8 @@ public interface LikeService {
 
     void removeLikeFromPost(int postId, int userId);
 
+    void removeAllLikesFromPost(int postId);
+
     List<Like> getLikesByPostId(int postId);
 
     List<Like> getLikesByUserId(int userId);

@@ -16,7 +16,7 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 @Service
 @RequiredArgsConstructor
 public class FileServiceAwsImpl implements FileService {
-    @Value("${application.bucket.name}")
+    @Value("${application.aws.bucket.name}")
     private String bucketName;
 
     private final S3Client s3Client;
