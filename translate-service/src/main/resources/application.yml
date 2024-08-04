@@ -5,6 +5,14 @@ spring:
   application:
     name: translate-service
 
+  cloud:
+    openfeign:
+      client:
+        config:
+          yandex-translate:
+            defaultRequestHeaders:
+              Authorization: Api-Key ${YANDEX.API-KEY}
+
 eureka:
   client:
     service-url:

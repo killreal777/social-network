@@ -67,6 +67,7 @@ services:
     build: translate-service
     env_file:
       - .env/eureka-client.env
+      - .env/yandex-api-key.env
     ports:
       - "8080"
 
