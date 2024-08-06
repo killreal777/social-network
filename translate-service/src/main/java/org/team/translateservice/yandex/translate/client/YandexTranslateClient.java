@@ -7,9 +7,6 @@ import org.team.translateservice.yandex.translate.dto.*;
 
 @FeignClient(name = "yandex-translate", url = "https://translate.api.cloud.yandex.net/translate/v2")
 public interface YandexTranslateClient {
-    @PostMapping("/detect")
-    DetectLanguageResponse detectLanguage(@RequestBody DetectLanguageRequest detectLanguageRequest);
-
     @PostMapping("/languages")
     ListLanguagesResponse listLanguages();
 
