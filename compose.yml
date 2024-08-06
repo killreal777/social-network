@@ -12,6 +12,17 @@ services:
     ports:
       - "5433:5432"
 
+  kafka:
+    networks:
+      - app-net
+    image: 'bitnami/kafka:latest'
+    container_name: kafka
+    env_file:
+      - .env/kafka.env
+    ports:
+      - "9092:9092"
+      - "9093:9093"
+
   eureka-server:
     networks:
       - app-net
@@ -38,11 +49,13 @@ services:
     depends_on:
       - eureka-server
       - postgres
+      - kafka
     build: post-service
     env_file:
       - .env/eureka-client.env
       - .env/datasource.env
       - .env/aws-credentials.env
+      - .env/kafka-client.env
     ports:
       - "8080"
 
@@ -52,10 +65,12 @@ services:
     depends_on:
       - eureka-server
       - postgres
+      - kafka
     build: like-service
     env_file:
       - .env/eureka-client.env
       - .env/datasource.env
+      - .env/kafka-client.env
     ports:
       - "8080"
 

@@ -6,6 +6,8 @@ import org.team.likeservice.model.Like;
 import java.util.List;
 
 public interface LikeRepository extends JpaRepository<Like, Integer> {
+    void deleteAllByPostId(int postId);
+
     List<Like> findAllByPostId(int postId);
 
     List<Like> findAllByUserId(int postId);
