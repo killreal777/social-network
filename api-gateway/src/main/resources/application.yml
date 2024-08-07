@@ -29,6 +29,12 @@ spring:
             - Path=/api/likes/**
           filters:
             - name: AuthenticationFilter
+        - id: follow-service
+          uri: lb://follow-service
+          predicates:
+            - Path=/api/follows/**
+          filters:
+            - name: AuthenticationFilter
 
 application:
   security:

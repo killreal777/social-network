@@ -1,4 +1,4 @@
-package org.team.likeservice.client;
+package org.team.followservice.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

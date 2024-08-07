@@ -1,4 +1,4 @@
-package org.team.likeservice;
+package org.team.followservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

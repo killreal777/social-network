@@ -1,4 +1,4 @@
-package org.team.likeservice.exception;
+package org.team.followservice.exception;
 
 import java.util.NoSuchElementException;
 

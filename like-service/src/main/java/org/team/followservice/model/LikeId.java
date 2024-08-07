@@ -1,4 +1,4 @@
-package org.team.likeservice.model;
+package org.team.followservice.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

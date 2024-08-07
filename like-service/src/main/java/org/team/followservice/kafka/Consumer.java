@@ -1,9 +1,9 @@
-package org.team.likeservice.kafka;
+package org.team.followservice.kafka;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
-import org.team.likeservice.service.LikeService;
+import org.team.followservice.service.LikeService;
 
 @Service
 @RequiredArgsConstructor

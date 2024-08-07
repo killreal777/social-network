@@ -1,12 +1,12 @@
-package org.team.likeservice.service;
+package org.team.followservice.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.team.likeservice.client.PostServiceClient;
-import org.team.likeservice.exception.NoSuchPostException;
-import org.team.likeservice.model.Like;
-import org.team.likeservice.repository.LikeRepository;
+import org.team.followservice.client.PostServiceClient;
+import org.team.followservice.exception.NoSuchPostException;
+import org.team.followservice.model.Like;
+import org.team.followservice.repository.LikeRepository;
 
 import java.util.List;
 

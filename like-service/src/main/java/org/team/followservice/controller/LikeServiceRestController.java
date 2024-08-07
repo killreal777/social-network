@@ -1,11 +1,10 @@
-package org.team.likeservice.controller;
+package org.team.followservice.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.team.likeservice.model.Like;
-import org.team.likeservice.service.LikeService;
+import org.team.followservice.model.Like;
+import org.team.followservice.service.LikeService;
 
 import java.util.List;
 

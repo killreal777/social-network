@@ -1,10 +1,10 @@
-package org.team.likeservice.handler;
+package org.team.followservice.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.team.likeservice.exception.NoSuchPostException;
+import org.team.followservice.exception.NoSuchPostException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
